@@ -36,10 +36,12 @@ export default {
     justify-content: center;
     flex-direction: column;
     padding: 20px;
+    width: 80px;
+    height: 80px;
     background: #fff;
     border-radius: 10px; /* 圆角 */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 阴影 */
-    margin: 10px;
+    margin:0px 10px 10px 10px ;
     transition: transform 0.2s ease-in-out; /* 平滑过渡效果 */
     cursor: pointer; /* 鼠标悬停时显示手型图标 */
 }

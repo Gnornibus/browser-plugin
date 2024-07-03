@@ -1,9 +1,9 @@
 <template>
     <div class="top-bar">
-        <el-icon :size="15">
+        <el-icon :size="20">
             <Bell />
         </el-icon>
-        <el-icon :size="15">
+        <el-icon :size="20">
             <UserFilled />
         </el-icon>
     </div>
