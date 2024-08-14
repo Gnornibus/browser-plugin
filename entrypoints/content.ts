@@ -20,5 +20,16 @@ export default defineContentScript({
       },
     });
     ui.mount();
+    // 监听消息：content_script
+    window.addEventListener('message', (e) => {
+      console.log('e:', e)
+      console.log('e.data:', e?.data)
+      console.log('e.data.type:', e?.data?.type)
+      console.log('e.data.data:', e?.data?.data)
+
+      if (e?.data?.type === 'my-message-type') {
+        // do something
+      }
+    })
   },
 });

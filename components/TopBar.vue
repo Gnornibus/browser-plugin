@@ -35,18 +35,9 @@ const handleGetAndSendUrl = async () => {
     const url = await getCurrentTabUrl();
     data.value = url;
     console.log('Current Tab URL:', url);
-
-    // 发送 URL 到 background.js 处理
-    chrome.runtime.sendMessage(
-        {action: "sendUrl", url},
-        (response) => {
-          if (response.success) {
-            console.log('Server response:', response.data);
-          } else {
-            console.error('Error:', response.error);
-          }
-        }
-    );
+    chrome.runtime.sendMessage({ cmd: 'sendUrl', value: url }, (response) => {
+      console.log('Response from background:', response.res);
+    });
   } catch (error) {
     console.error('Error getting or sending URL:', error);
   }

@@ -1,8 +1,6 @@
 import axios from 'axios'
 import {ElMessage, ElMessageBox, ElNotification} from 'element-plus'
 import {getToken} from './token-util'
-import NProgress from 'nprogress'
-import {showFullScreenLoading, tryHideFullScreenLoading} from "./loading.js";
 
 // 创建axios实例时配置的默认值
 const request = axios.create({
@@ -25,9 +23,6 @@ const request = axios.create({
  * 请求拦截器
  */
 request.interceptors.request.use(config => {
-        // 启动进度条（起始最低为60%，永不达100%）
-        NProgress.inc();
-        showFullScreenLoading()
         // 在发送请求之前做些什么
         const userToken = getToken()
         // 如果 token 存在
@@ -38,9 +33,6 @@ request.interceptors.request.use(config => {
     },
     error => {
         ElMessage.error({message: error.message, duration: 3000})
-        // 关闭进度条
-        NProgress.done();
-        tryHideFullScreenLoading()
         // 对请求错误做些什么
         return Promise.reject(error.message);
     }
@@ -110,19 +102,12 @@ request.interceptors.response.use(async response => {
                         duration: 2000
                     });
                 }
-                NProgress.done();
-                tryHideFullScreenLoading()
                 return Promise.reject(new Error(data.message || 'Error'))
             } else {
-                NProgress.done();
-                tryHideFullScreenLoading()
                 return data;
             }
         }
     }, error => {
-        // 关闭进度条
-        NProgress.done();
-        tryHideFullScreenLoading()
         // 将如下错误信息跳转到登录页面
         if (error + "" === "Error: Network Error") {
             ElMessage.error({message: "网络链接异常,请保存数据,刷新重试", type: 'error', duration: 3000})
